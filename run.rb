@@ -25,6 +25,7 @@ begin
             if login=="init"
                 $allowed_actions = Array.new
                 $allowed_actions.push(:leader)
+                system("ruby", "createdb.rb", database, login, password)
             elsif login=="app"
                 $allowed_actions.delete(:open)
                 $allowed_actions.delete(:leader)
@@ -248,7 +249,7 @@ begin
         end
     end
 rescue  PG::Error => exception
-    puts {}
+    puts "{\"status\": \"ERROR\"}"
 ensure
     if db then db.close end
 end
